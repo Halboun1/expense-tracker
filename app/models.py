@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
@@ -8,8 +9,8 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     expenses = db.relationship('Expense', backref='user', lazy=True)
-    
-    
+    def get_id(self):
+        return str(self.id)
 
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
